@@ -23,7 +23,9 @@ namespace EaTS.Models
         /// Классы типа
         /// </summary>
         public virtual ICollection<EquipmentClass> Classes { get; set; }
-
+        /// <summary>
+        /// Сортировка в списке
+        /// </summary>
         public int DisplayOrder { get; set; }
     }
 }

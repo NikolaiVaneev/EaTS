@@ -24,13 +24,13 @@ namespace EaTS
         public enum RepairStatus
         {
             [Description("Поступило на ремонт")]
-            OnRepair,
+            ReceivedForRepair,
             [Description("Направлено в ОМР")]
-            Repaired,
+            SendForDIR,
             [Description("Принято из ОМР")]
-            NotRepairable,
+            TakenFromDIR,
             [Description("Передано в учреждение")]
-            TechnicalConclusion
+            ReturnedToOwner
         }
     }
 }
