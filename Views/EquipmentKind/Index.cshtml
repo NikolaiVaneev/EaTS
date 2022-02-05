@@ -1,0 +1,70 @@
+﻿@model EaTS.ViewModels.EquipmentKindViewModel
+@{
+    ViewData["Title"] = "Вид оборудования";
+}
+
+<div>
+    <div class="row page-header">
+        <div class="column">
+            <h1>
+                <a class="effect-underline" asp-controller="EquipmentType" asp-action="Index">Типы оборудования</a>
+                /
+                <a class="effect-underline" asp-controller="EquipmentClass" asp-action="Index" asp-route-Id="@Model.EquipmentClass.EqupmentType.Id">@Model.EquipmentClass.EqupmentType.Name</a>
+                / @Model.EquipmentClass.ShortName</h1>
+        </div>
+        <div class="column content-align-right">
+            <a  asp-controller="EquipmentType" asp-action="Upsert" class="btn-add">
+                <i class="fa fa-plus"></i>  Создать
+            </a>
+        </div>
+    </div>
+    <br />
+
+    @if (Model.Equipments.Count() > 0)
+    {
+        <div>
+            <table>
+                <thead>
+                    <tr><th>Наименование</th><th>Цена</th><th>Устаревшее</th><th>Управление</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.Equipments)
+                    {
+                        <tr data-id="@($"{obj.Id}")">
+
+                            <td width=75%>
+                                @obj.Name
+                            </td>
+                            <td  width=15%><span class="money">@obj.Price</span></td>
+
+                            @if (@obj.IsObsolete)
+                            {
+                                <td width=10% class="content-align-center">✓</td>
+                            }
+                            else
+                            {
+                                <td width=10%></td>    
+                            }
+
+
+                            <td width=10%>
+                                <div class="content-align-center" role="group">
+                                    <a title="Редактировать" asp-controller="EquipmentKind" asp-route-Id="@obj.Id" asp-action="Upsert">
+                                        <i class="fa fa-lg fa-pencil btn-edit"></i>
+                                    </a>
+                                    <a title="Удалить" asp-controller="EquipmentKind" asp-route-Id="@obj.Id" asp-action="Delete">
+                                        <i class="fa fa-lg fa-trash-o btn-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Данных не найдено</p>
+    }
+</div>

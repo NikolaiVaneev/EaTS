@@ -1,0 +1,76 @@
+﻿@model EaTS.ViewModels.EquipmentClassViewModel
+@{
+    ViewData["Title"] = "Классы оборудования";
+}
+
+<div>
+    <div class="row page-header">
+        <div class="column">
+            <h1>
+                <a class="effect-underline" asp-controller="EquipmentType" asp-action="Index">Типы оборудования</a>
+                 / @Model.EquipmentType.Name</h1>
+        </div>
+        <div class="column content-align-right">
+            <a  asp-controller="EquipmentType" asp-action="Upsert" class="btn-add">
+                <i class="fa fa-plus"></i>  Создать
+            </a>
+        </div>
+    </div>
+    <br />
+
+    @if (Model.EquipmentClasses.Count() > 0)
+    {
+        <div>
+            <table>
+                <thead>
+                    <tr><th>Полное наименование</th><th>Короткое обозначение</th><th>Ремонтопригодность</th><th>Оборудование</th><th>Управление</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.EquipmentClasses)
+                    {
+                        <tr data-id="@($"{obj.Id}")">
+
+                            <td width=50%>
+                                <a class="effect-underline" asp-controller="EquipmentKind" asp-action="Index" asp-route-Id="@obj.Id" >@obj.FullName</a>
+                            </td>
+                            <td width=25%>@obj.ShortName</td>
+                            @if (@obj.IsRepair)
+                            {
+                                <td width=10% class="content-align-center">✓</td>
+                            }
+                            else
+                            {
+                                <td width=10%></td>    
+                            }
+
+                            
+                            
+                            @if (@obj.Equipments.Count > 0)
+                            {
+                                <td width=10% class="content-align-center">@obj.Equipments.Count</td>
+                            }
+                            else
+                            {
+                                <td width=10%></td>
+                            }
+                            <td width=10%>
+                                <div class="content-align-center" role="group">
+                                    <a title="Редактировать" asp-controller="Agency" asp-route-Id="@obj.Id" asp-action="Upsert">
+                                        <i class="fa fa-lg fa-pencil btn-edit"></i>
+                                    </a>
+                                    <a title="Удалить" asp-controller="Agency" asp-route-Id="@obj.Id" asp-action="Delete">
+                                        <i class="fa fa-lg fa-trash-o btn-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Данных не найдено</p>
+    }
+</div>

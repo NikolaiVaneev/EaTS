@@ -1,0 +1,103 @@
+﻿@model IEnumerable<EaTS.Models.Agency>
+@{
+    ViewData["Title"] = "Учреждения";
+}
+
+<div>
+    <div class="row page-header">
+        <div class="column">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="column content-align-right">
+            <a asp-controller="Agency" asp-action="Upsert" class="btn-add">
+                <i class="fa fa-plus"></i>  Создать
+            </a>
+        </div>
+    </div>
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <div>
+            <table class="sortable-table">
+                <thead>
+                    <tr><th>Полное наименование</th><th>Короткое обозначение</th><th>Тип</th><th>Управление</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr data-id="@($"{obj.Id}")">
+                            <td width=45%>@obj.Name</td>
+                            <td width=30%>@obj.ShortName</td>
+                            <td width=15%>@obj.AgencyType.ShortName</td>
+                            <td width=10%>
+                                <div class="content-align-center" role="group">
+                                    <a title="Редактировать" asp-controller="Agency" asp-route-Id="@obj.Id" asp-action="Upsert">
+                                        <i class="fa fa-lg fa-pencil btn-edit"></i>
+                                    </a>
+                                    <a title="Удалить" asp-controller="Agency" asp-route-Id="@obj.Id" asp-action="Delete">
+                                        <i class="fa fa-lg fa-trash-o btn-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Данных не найдено</p>
+    }
+</div>
+
+
+@section Scripts{
+
+    @{
+    <script>
+        var fixHelper = function (e, ui) {
+            ui.children().each(function () {
+                $(this).width($(this).width());
+            });
+            return ui;
+        };
+
+        $('.sortable-table tbody').sortable({
+            helper: fixHelper,
+            revert: 100,
+            axis: 'y',
+            update: function (event, ui) {
+
+                var model = [];
+
+                $("tbody tr").each(function (index, tr) {
+                    var objModel =  parseInt(tr.dataset.id, 10) ;
+                    model.push(objModel);
+                });
+
+                var postData = JSON.stringify(model);
+
+                if (model.length > 1)
+                {
+                    $.ajax({
+                        url: '@Url.Action("UpdateOrder", "Agency")',
+                        type: "POST",
+                        contentType: "Application/json; charset=utf-8",
+                        dataType: "json",
+                        data: postData,
+                        async: true,
+                        success: function () {
+                            console.log('отправлено');
+                        }
+                    });
+
+                }
+            }
+        });
+    </script>
+
+    }
+
+}

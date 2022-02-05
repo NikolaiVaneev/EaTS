@@ -1,0 +1,287 @@
+﻿body {
+    background-image: url("../img/background.png");
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+
+header {
+    font-family: Cuprum, Arial, Helvetica, sans-serif;
+    margin-top: 1px;
+    z-index: 1;
+    /*или просто -2 следующие строки position: relative*/
+    /*position: fixed;
+    width: 100%;
+    display: block;*/
+    position: relative
+}
+
+main {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+}
+
+.container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 50vh;
+}
+
+h1 {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/*Menu*/
+.dws-menu * {
+    margin: 0;
+    padding: 0;
+}
+.dws-menu ul,
+.dws-menu ol {
+    list-style: none;
+}
+.dws-menu > ul {
+    display: flex;
+    justify-content: center;
+}
+.dws-menu > ul li a {
+    display: block;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c9c9c9+0,f6f6f6+2,c4c5c7+98,757577+100;Custom+3 */
+    background: rgb(201,201,201); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(201,201,201,1) 0%, rgba(246,246,246,1) 2%, rgba(196,197,199,1) 98%, rgba(117,117,119,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(201,201,201,1) 0%,rgba(246,246,246,1) 2%,rgba(196,197,199,1) 98%,rgba(117,117,119,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(201,201,201,1) 0%,rgba(246,246,246,1) 2%,rgba(196,197,199,1) 98%,rgba(117,117,119,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+    padding: 15px 30px 15px 40px;
+    font-size: 14px;
+    color: #454547;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.dws-menu > ul li {
+    position: relative;
+    border-right: 1px solid #c7c8ca;
+}
+.dws-menu > ul li > a i.fa {
+    position: absolute;
+    top: 13px;
+    left: 12px;
+    font-size: 18px;
+}
+.dws-menu > ul li:first-child {
+    border-left: 1px solid #b2b3b5;
+}
+.dws-menu > ul li:last-child {
+    border-right: 1px solid #babbbb;
+}
+.dws-menu li a:hover {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0e1e5+0,454547+2,454547+98,e0e1e5+100 */
+    background: rgb(224,225,229); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(224,225,229,1) 0%, rgba(69,69,71,1) 2%, rgba(69,69,71,1) 98%, rgba(224,225,229,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(224,225,229,1) 0%,rgba(69,69,71,1) 2%,rgba(69,69,71,1) 98%,rgba(224,225,229,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(224,225,229,1) 0%,rgba(69,69,71,1) 2%,rgba(69,69,71,1) 98%,rgba(224,225,229,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    color: #ffffff;
+    box-shadow: 1px 5px 10px -5px black;
+    transition: all 0.3s ease;
+}
+/*Sub menu*/
+.dws-menu li ul {
+    position: absolute;
+    min-width: 150px;
+    display: none;
+}
+.dws-menu li > ul li {
+    border: 1px solid #c7c8ca;
+}
+.dws-menu li > ul li a {
+    padding: 10px;
+    text-transform: none;
+    background: #e4e4e5;
+}
+.dws-menu li > ul li ul {
+    position: absolute;
+    right: -150px;
+    top: 0;
+}
+.dws-menu li:hover > ul {
+    display: block;
+}
+
+/*Tables*/
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    /*background: white;*/
+    /*max-width: 100%;*/
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0px auto;
+}
+th {
+    font-weight: normal;
+    color: rgb(141, 143, 148);
+    border-bottom: 2px solid #454547;
+    padding: 10px 8px;
+}
+td {
+    color: rgb(98, 98, 121);
+    padding: 9px 8px;
+    transition: .3s linear;
+    border-bottom: 1px solid #ccc;
+}
+tr:hover td {
+    color: black;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    /*font-weight: bold;*/
+}
+
+/*effect-underline*/
+a {
+    text-decoration: none;
+    position: relative;
+    color: dimgray;
+}
+a:active{
+    color: black;
+}
+a:hover{
+    color:black;
+}
+a.effect-underline:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 1em;
+    width: 100%;
+    border-bottom: 1px solid;
+    margin-top: 10px;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale(0,1);
+    transform: scale(0,1);
+}
+a.effect-underline:hover:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+.money::after {
+    content: " ₽";
+}
+
+/*Buttons*/
+.btn{
+    background-color: transparent;
+}
+.btn-add {
+    color: #09a311;
+    border: solid #9db9cc 1px;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.btn-add:hover {
+    color: #4ad85a;
+}
+.btn-delete {
+    color: #d96531;
+}
+.btn-delete:hover {
+    color: red;
+}
+.btn-edit {
+    color: cornflowerblue;
+}
+.btn-edit:hover {
+    color: #14c6ee;
+}
+
+.dialog{
+    text-align: center;
+    display: block;
+    width: 200px;
+    background-color : rgba(117,117,119,1);
+}
+
+.page-header {
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+.content-align-center {
+    text-align: center;
+}
+.content-align-right {
+    text-align: right;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.hide {
+    display: none;
+}
+
+
+@media (min-width: 575.98px) {
+    .container {
+        max-width: 540px;
+        margin: auto;
+        padding: 0;
+    }
+}
+@media (min-width: 767.98px) {
+    .container {
+        max-width: 720px;
+    }
+}
+@media (min-width: 991.98px) {
+    .container {
+        max-width: 960px;
+    }
+}
+@media (min-width: 1199.98px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+
+@font-face {
+    font-family: "Cuprum";
+    src: url("../fonts/Cuprum-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

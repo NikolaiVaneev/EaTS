@@ -1,0 +1,38 @@
+﻿@model EaTS.Models.EquipmentType;
+
+<div class="dialog">
+
+            <h1>Тип оборудования</h1>
+
+
+    <form method="post" asp-action="Upsert">
+        <input asp-for="Id" hidden />
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div>
+                <div>
+                    <div>
+                        <label asp-for="Name"/>
+                        <input asp-for="Name" />
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type="submit" value="Сохранить" />
+                        <a asp-action="Index"><i class="fas fa-sign-out-alt"></i> &nbsp; Назад</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}

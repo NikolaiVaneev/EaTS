@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/icons/icon.png" type="image/png">
+    <title>@ViewData["Title"] - EaTS</title>
+
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/magnific-popup.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="container">
+    <header>
+        <nav class="dws-menu">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>Главная</a></li>
+
+                <li>
+                    <a href="#"><i class="fa fa-calendar"></i>Мероприятия</a>
+                    <ul>
+                        <li><a href="#">Годовой план</a></li>
+                        <li><a href="#">Комиссионные</a></li>
+                        <li><a href="#">Дополнительные</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-shopping-cart"></i>Запросы ТСОН</a>
+                    <ul>
+                        <li><a href="#">Устранение недостатков</a></li>
+                        <li><a href="#">Выполнение мероприятий</a></li>
+                        <li><a href="#">Создание резерва</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-cogs"></i>Ремонт ТСОН</a></li>
+                <li>
+                    <a href="#"><i class="fa fa-th-list"></i>Справочники</a>
+                    <ul>
+                        <li><a asp-area="" asp-controller="AgencyType" asp-action="Index">Типы учреждений</a></li>
+                        <li><a asp-area="" asp-controller="Agency" asp-action="Index">Учреждения</a></li>
+                        <li><a asp-area="" asp-controller="EquipmentType" asp-action="Index">Оборудование</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-envelope-open"></i>Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div>
+            &copy; 2022 - ФКУ ЦИТОВ УФСИН России по Республике Татарстан
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery-ui.min.js"></script>
+    <script src="~/lib/jquery-magnific/jquery.magnific-popup.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

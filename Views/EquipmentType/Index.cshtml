@@ -1,0 +1,138 @@
+﻿@model IEnumerable<EaTS.Models.EquipmentType>
+@{
+    ViewData["Title"] = "Типы оборудования";
+}
+
+<div>
+    <div class="row page-header">
+        <div class="column">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="column content-align-right">
+            @*<button class="btn btn-add" onclick="ShowUpsetDialog()" data-effect="mfp-zoom-in"><i class="fa fa-plus"></i></button>*@
+            <button class="btn btn-add" onclick="ShowUpsetDialog()" data-effect="mfp-zoom-in"><i class="fa fa-plus"></i></button>
+@*            <a asp-controller="EquipmentType" asp-action="Upsert" class="btn">
+                <i class="fa fa-plus"></i>
+            </a>*@
+        </div>
+    </div>
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <div>
+            <table class="sortable-table">
+                <thead>
+                    <tr><th>Наименование</th><th>Классы</th><th>Виды</th><th>Управление</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr data-id="@($"{obj.Id}")">
+                            <td width=50%>
+                                <a class="effect-underline" asp-controller="EquipmentClass" asp-action="Index" asp-route-Id="@obj.Id">@obj.Name</a>
+                            </td>
+
+                            @if (@obj.Classes.Count > 0)
+                            {
+                                <td width=20%>@obj.Classes.Count</td>
+                            }
+                            else
+                            {
+                                <td width=20%></td>
+                            }
+
+
+                            <td width=20%></td>
+
+
+                            <td width=10%>
+                                <div class="content-align-center" role="group">
+                                    <button title="Редактировать" class="btn btn-edit" onclick="ShowUpsetDialog(@obj.Id)"><i class="fa fa-lg fa-pencil btn-edit"></i></button>
+
+                                    <a title="Удалить" asp-controller="EquipmentType" asp-route-Id="@obj.Id" asp-action="Delete">
+                                        <i class="fa fa-lg fa-trash-o btn-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+  
+    }
+    else
+    {
+        <p>Данных не найдено</p>
+    }
+</div>
+
+
+@section Scripts{
+    @{
+    <script>
+
+        function ShowUpsetDialog(id) {
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Upsert", "EquipmentType")",
+                data: { id },
+                success: 
+                function (response) {
+                    $.magnificPopup.open({
+                       items: { src: response, 
+                       type: 'inline' },
+                       mainClass: 'mfp-fade',
+                       modal: false
+                    });
+                }
+            });
+        }
+
+
+     $(document).ready(function($) 
+     {
+         let fixHelper = function (e, ui) {
+                ui.children().each(function () {
+                    $(this).width($(this).width());
+                });
+                return ui;
+        };
+     
+        $('.sortable-table tbody').sortable({
+                helper: fixHelper,
+                revert: 100,
+                axis: 'y',
+                update: function (event, ui) {
+
+                    var model = [];
+
+                    $("tbody tr").each(function (index, tr) {
+                        var objModel =  parseInt(tr.dataset.id, 10) ;
+                        model.push(objModel);
+                    });
+
+                    let postData = JSON.stringify(model);
+
+                    if (model.length > 1)
+                    {
+                        $.ajax({
+                            url: '@Url.Action("UpdateListOrder", "EquipmentType")',
+                            type: "POST",
+                            contentType: "Application/json; charset=utf-8",
+                            dataType: "json",
+                            data: postData,
+                            async: true,
+                            success: function () {
+                                //console.log('успешно');
+                            }
+                        });
+
+                    }
+                }
+        });
+     });
+    </script>
+    }
+}

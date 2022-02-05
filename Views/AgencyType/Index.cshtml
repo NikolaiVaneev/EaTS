@@ -1,0 +1,61 @@
+﻿@model IEnumerable<EaTS.Models.AgencyType>
+@{
+    ViewData["Title"] = "Типы учреждений";
+}
+
+<div>
+    <div class="row page-header">
+        <div class="column">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="column content-align-right">
+            <a asp-controller="AgencyType" asp-action="Upsert" class="btn-add">
+                <i class="fa fa-plus"></i>  Создать
+            </a>
+        </div>
+    </div>
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <div>
+            <table>
+                <thead>
+                    <tr><th>Полное наименование</th><th>Короткое обозначение</th><th>Объекты</th><th>Управление</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr data-id="@($"{obj.Id}")">
+                            <td width=45%>@obj.Name</td>
+                            <td width=30%>@obj.ShortName</td>
+                            @if (@obj.Agencies.Count > 0)
+                            {
+                                <td width=15%>@obj.Agencies.Count</td>
+                            }
+                            else
+                            {
+                                <td width=15%></td>
+                            }
+                            <td width=10%>
+                                <div class="content-align-center" role="group">
+                                    <a title="Редактировать" asp-controller="Agency" asp-route-Id="@obj.Id" asp-action="Upsert">
+                                        <i class="fa fa-lg fa-pencil btn-edit"></i>
+                                    </a>
+                                    <a title="Удалить" asp-controller="Agency" asp-route-Id="@obj.Id" asp-action="Delete">
+                                        <i class="fa fa-lg fa-trash-o btn-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Данных не найдено</p>
+    }
+</div>
+
