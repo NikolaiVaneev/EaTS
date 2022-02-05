@@ -1,38 +1,51 @@
 ﻿@model EaTS.Models.EquipmentType;
 
-<div class="dialog">
-
-            <h1>Тип оборудования</h1>
-
-
-    <form method="post" asp-action="Upsert">
-        <input asp-for="Id" hidden />
-        <div>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div>
-                <div>
+<div class="modal" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.Id == 0)
+                {
+                    <h3 class="modal-title">Добавить тип</h3>
+                }
+                else
+                {
+                    <h3 class="modal-title">Изменить тип</h3>
+                }
+                <a href="" onclick="CloseModal()" title="Закрыть" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-action="Upsert">
+                    <input asp-for="Id" hidden />
                     <div>
-                        <label asp-for="Name"/>
-                        <input asp-for="Name" />
-                        <span asp-validation-for="Name"></span>
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div>
+                            <div>
+                                <label asp-for="Name" />
+                                <input asp-for="Name"/>
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                            <div>
+                                <input type="submit" value="Сохранить" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div>
-                    <div>
-                        <input type="submit" value="Сохранить" />
-                        <a asp-action="Index"><i class="fas fa-sign-out-alt"></i> &nbsp; Назад</a>
-                    </div>
-                </div>
-
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </div>
+
 
 @section Scripts{
     @{
     <partial name="_ValidationScriptsPartial" />
     }
+<script>
+    function CloseModal() 
+    {
+       $('.modal').remove();
+    }
+
+</script>
 }

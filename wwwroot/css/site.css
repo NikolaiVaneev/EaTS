@@ -213,13 +213,6 @@ a.effect-underline:hover:after {
     color: #14c6ee;
 }
 
-.dialog{
-    text-align: center;
-    display: block;
-    width: 200px;
-    background-color : rgba(117,117,119,1);
-}
-
 .page-header {
     margin-top: 20px;
 }

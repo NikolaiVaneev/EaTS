@@ -93,6 +93,7 @@ namespace EaTS.Controllers
                 var type = item.GetType();
 
                 var objString = JsonSerializer.Serialize(item);
+                // Убираем квадратные скобки
                 objString = objString.Substring(1, objString.Length - 2);
 
                 string[] arr = objString.Split(',');
