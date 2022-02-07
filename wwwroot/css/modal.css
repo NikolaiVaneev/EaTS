@@ -64,6 +64,10 @@ body {
     outline: 0;
 }
 
+.modal label{
+    border: solid 1px black;
+}
+
 @media (min-width: 768px) {
     .modal-content {
         -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);

@@ -79,8 +79,7 @@
                     $('.modal').remove();
                     $('main').append(response);
                     // TODO: Переписать вызов модалки?
-                    const currentUrl = window.location.href; 
-                    location.href=currentUrl + '#modal';
+                    location.href= window.location.href + '#modal';
                 }
             });
         }

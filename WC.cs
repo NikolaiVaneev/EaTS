@@ -32,5 +32,15 @@ namespace EaTS
             [Description("Передано в учреждение")]
             ReturnedToOwner
         }
+
+        public enum UserRole
+        {
+            [Description("Администратор")]
+            Administrator,
+            [Description("Куратор")]
+            Curator,
+            [Description("Пользователь")]
+            User
+        }
     }
 }
