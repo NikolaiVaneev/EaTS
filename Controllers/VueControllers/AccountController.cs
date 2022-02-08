@@ -1,6 +1,7 @@
 ﻿using EaTS.Data;
 using EaTS.Models;
 using EaTS.Service;
+using EaTS.Service.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -25,8 +26,8 @@ namespace EaTS.Controllers.VueControllers
         [HttpPost("/token")]
         public IActionResult Token(LoginRequest request)
         {
-            var identity = GetIdentity(request.username, request.password);
-            if (identity == null)
+            var getIdentityResponse = GetIdentity(request.username, request.password);
+            if (getIdentityResponse == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
@@ -37,7 +38,7 @@ namespace EaTS.Controllers.VueControllers
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
                     notBefore: now,
-                    claims: identity.Claims,
+                    claims: getIdentityResponse.claimsIdentity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -45,15 +46,14 @@ namespace EaTS.Controllers.VueControllers
             var response = new
             {
                 accessToken = encodedJwt,
-                username = identity.Name,
-                password = request.password
+                role = getIdentityResponse.user
             };
 
             return new ObjectResult(response);
 
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        private GetIdentityResponse GetIdentity(string username, string password)
         {
             User user = _db.User.FirstOrDefault(u => u.Login == username && u.Password == password);
 
@@ -62,11 +62,16 @@ namespace EaTS.Controllers.VueControllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.GetDescription())
                 };
 
                 ClaimsIdentity claimsIdentity = new(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
+                GetIdentityResponse getIdentityResponse = new GetIdentityResponse
+                {
+                    claimsIdentity = claimsIdentity,
+                    user = user
+                };
+                return getIdentityResponse;
             }
             // если пользователя не найдено
             return null;
