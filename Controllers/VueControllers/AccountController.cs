@@ -65,7 +65,7 @@ namespace EaTS.Controllers.VueControllers
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
                 };
 
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                ClaimsIdentity claimsIdentity = new(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                 return claimsIdentity;
             }
             // если пользователя не найдено

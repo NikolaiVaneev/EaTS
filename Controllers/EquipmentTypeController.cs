@@ -1,5 +1,6 @@
 ﻿using EaTS.Data;
 using EaTS.Models;
+using EaTS.Service.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +21,7 @@ namespace EaTS.Controllers
         private readonly ApplicationDbContext _db;
         public async Task<IActionResult> Index()
         {
+           
             return View(await _db.EquipmentType.Include(a => a.Classes).ThenInclude(c => c.Equipments).OrderBy(s => s.DisplayOrder).ToListAsync());
         }
 
