@@ -6,11 +6,11 @@
             <div class="modal-header">
                 @if (Model.Id == 0)
                 {
-                    <h3 class="modal-title">Добавить тип</h3>
+                    <p class="modal-title">Добавить тип</p>
                 }
                 else
                 {
-                    <h3 class="modal-title">Изменить тип</h3>
+                    <p class="modal-title">Изменить тип</p>
                 }
                 <a href="" onclick="CloseModal()" title="Закрыть" class="close">×</a>
             </div>
@@ -21,7 +21,7 @@
                         <div asp-validation-summary="ModelOnly"></div>
                         <div>
                             <div>
-                                <label asp-for="Name" />
+                                <label asp-for="Name"></label>
                                 <input asp-for="Name"/>
                                 <span asp-validation-for="Name"></span>
                             </div>

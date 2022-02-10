@@ -41,6 +41,9 @@ namespace EaTS
                             ValidateIssuerSigningKey = true,
                         };
                     });
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseMySql(Configuration.GetConnectionString("DevConnection"), new MySqlServerVersion(new Version(8, 0, 21))));
