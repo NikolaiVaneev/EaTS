@@ -46,7 +46,7 @@ namespace EaTS.Controllers.VueControllers
             var response = new
             {
                 accessToken = encodedJwt,
-                role = getIdentityResponse.user
+                user = getIdentityResponse.user
             };
 
             return new ObjectResult(response);

@@ -44,10 +44,24 @@ namespace EaTS
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseMySql(Configuration.GetConnectionString("DevConnection"), new MySqlServerVersion(new Version(8, 0, 21))));
+            services.AddCors(c =>
+            {
+                c.AddPolicy("VueCorsPolicy", builder => {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:8080")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
