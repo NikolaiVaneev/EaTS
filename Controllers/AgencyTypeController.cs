@@ -23,12 +23,22 @@ namespace EaTS.Controllers
         
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AgencyType>>> GetTypes()
+        public async Task<ActionResult<IEnumerable<AgencyType>>> GetAll()
         {
             return await _db.AgencyType.Include(a => a.Agencies).ToListAsync();
         }
 
-        //[Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<AgencyType> Get(AgencyType agencyType)
+        {
+            var obj = _db.AgencyType.Where(a => a.Id == agencyType.Id || a.Name == agencyType.Name || a.ShortName == agencyType.ShortName)
+                .Include(a => a.Agencies).FirstOrDefaultAsync();
+
+            return await obj;
+        }
+
+
+       // [Authorize(Roles = "admin")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AgencyType agencyType)
@@ -49,11 +59,11 @@ namespace EaTS.Controllers
                 return BadRequest("Object already exists in the database");
             }
             ////////////////////////////////////////
-
-
             _db.AgencyType.Add(agencyType);
             await _db.SaveChangesAsync();
-            return Ok("Object added successfully");
+
+            return Ok(agencyType);
+            //return Ok("Object added successfully");
         }
 
         //[Authorize(Roles = "admin")]
@@ -91,7 +101,8 @@ namespace EaTS.Controllers
 
             _db.AgencyType.Update(type);
             await _db.SaveChangesAsync();
-            return Ok("Object updated successfully");
+            return Ok(type);
+            //return Ok("Object updated successfully");
         }
 
         //[Authorize(Roles = "admin")]
@@ -117,15 +128,9 @@ namespace EaTS.Controllers
             return Ok("Object deleted successfully");
         }
 
-
-
-
-
         public async Task<IActionResult> Index()
         {
             return View(await _db.AgencyType.Include(a => a.Agencies).ToListAsync());
         }
-
-
     }
 }
