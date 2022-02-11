@@ -1,14 +1,4 @@
-﻿/* стилизация содержимого страницы */
-body {
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #292b2c;
-    background-color: #fff;
-}
-
-/* свойства модального окна по умолчанию */
+﻿/* свойства модального окна по умолчанию */
 .modal {
     position: fixed; /* фиксированное положение */
     top: 0;
@@ -34,8 +24,9 @@ body {
 /* ширина модального окна и его отступы от экрана */
 .modal-dialog {
     position: relative;
-    width: auto;
-    margin: 10px;
+    width: 350px;
+    margin: 20px;
+    background-color: transparent;
 }
 
 @media (min-width: 576px) {
@@ -60,15 +51,11 @@ body {
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.2);
-    border-radius: .3rem;
+    border-radius: .5rem;
     outline: 0;
 }
 
-.modal label{
-    border: solid 1px black;
-}
-
-@media (min-width: 768px) {
+@media (min-width: 600px) {
     .modal-content {
         -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
         box-shadow: 0 5px 15px rgba(0,0,0,.5);
@@ -88,7 +75,7 @@ body {
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 15px;
+    padding: 5px 10px;
     border-bottom: 1px solid #eceeef;
 }
 
@@ -97,7 +84,7 @@ body {
     margin-bottom: 0;
     line-height: 1.5;
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: bold;
 }
 /* свойства для кнопки "Закрыть" */
 .close {
@@ -125,6 +112,33 @@ body {
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 15px;
+    padding: 10px;
     overflow: auto;
+}
+
+.modal form {
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 15px 15px 6px 15px;
+    min-width: 320px;
+    max-width: auto;
+    width: 100%;
+    border: 1px solid rgba(120,120,120,.7);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 5px 1px rgba(0,0,0,.5);
+    box-shadow: 0 0 5px 1px rgba(0,0,0,.5);
+
+}
+
+.modal input{
+    border: solid 1px;
+    padding: 0.25rem;
+
 }
