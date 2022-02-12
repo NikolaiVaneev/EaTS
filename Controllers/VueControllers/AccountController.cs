@@ -13,8 +13,8 @@ using System.Security.Claims;
 
 namespace EaTS.Controllers.VueControllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class AccountController : ControllerBase
     {
         public AccountController(ApplicationDbContext db)
@@ -23,7 +23,7 @@ namespace EaTS.Controllers.VueControllers
         }
         private readonly ApplicationDbContext _db;
 
-        [HttpPost("/token")]
+        [HttpPost("token")]
         public IActionResult Token(LoginRequest request)
         {
             var getIdentityResponse = GetIdentity(request.username, request.password);

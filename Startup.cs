@@ -47,6 +47,7 @@ namespace EaTS
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseMySql(Configuration.GetConnectionString("DevConnection"), new MySqlServerVersion(new Version(8, 0, 21))));
+
             services.AddCors(c =>
             {
                 c.AddPolicy("VueCorsPolicy", builder => {
